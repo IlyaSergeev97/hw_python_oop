@@ -13,7 +13,7 @@ class InfoMessage:
         self.calories = calories
 
     def get_message(self) -> str:
-        '''Вывод сообщения о тренировке.'''
+        """Вывод сообщения о тренировке."""
         return (f'Тип тренировки: {self.training_type}; '
                 f'Длительность: {self.duration:.3f} ч.; '
                 f'Дистанция: {self.distance:.3f} км; '
@@ -41,7 +41,7 @@ class Training:
 
     def get_mean_speed(self) -> float:
         """Получить среднюю скорость движения."""
-        return (self.get_distance() / self.duration)
+        return self.get_distance() / self.duration
 
     def get_spent_calories(self) -> float:
         """Получить количество затраченных калорий."""
@@ -63,7 +63,7 @@ class Running(Training):
         super().__init__(action, duration, weight)
 
     def get_spent_calories(self) -> float:
-        '''Переопределяет метод get_spent_calories.'''
+        """Переопределяет метод get_spent_calories."""
         return ((18 * self.get_mean_speed() - 20) * self.weight
                 / self.M_IN_KM * (self.duration * 60))
 
@@ -79,9 +79,9 @@ class SportsWalking(Training):
         self.height = height
 
     def get_spent_calories(self) -> float:
-        '''Переопределяет метод get_spent_calories.'''
+        """Переопределяет метод get_spent_calories."""
         return ((0.035 * self.weight
-                + (self.get_mean_speed() **2 // self.height)
+                + (self.get_mean_speed() ** 2 // self.height)
                 * 0.029 * self.weight) * (self.duration * 60))
 
 
@@ -100,12 +100,12 @@ class Swimming(Training):
         self.count_pool = count_pool
 
     def get_mean_speed(self) -> float:
-        '''Средняя скорость'''
+        """Средняя скорость."""
         return self.length_pool * self.count_pool / self.M_IN_KM\
             / self.duration
 
     def get_spent_calories(self) -> float:
-        '''Переопределяет метод get_spent_calories.'''
+        """Переопределяет метод get_spent_calories."""
         return (self.get_mean_speed() + 1.1) * 2 * self.weight
 
 
@@ -114,8 +114,8 @@ def read_package(workout_type: str, data: list) -> Training:
     workouts = {'SWM': Swimming,
                 'RUN': Running,
                 'WLK': SportsWalking}
-    Training = workouts[workout_type](*data)
-    return Training
+    training = workouts[workout_type](*data)
+    return training
 
 
 def main(training: Training) -> None:
