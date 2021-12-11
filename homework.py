@@ -44,8 +44,8 @@ class Training:
         return self.get_distance() / self.duration
 
     def get_spent_calories(self) -> float:
-        raise NotImplementedError
         """Получить количество затраченных калорий."""
+        raise NotImplementedError
 
     def show_training_info(self) -> InfoMessage:
         """Вернуть информационное сообщение о выполненной тренировке."""
@@ -58,8 +58,8 @@ class Training:
 
 class Running(Training):
     """Тренировка: бег."""
-    Сoefficient1: int = 18
-    Сoefficient2: int = 20
+    СOEFFICIENT1: int = 18
+    СOEFFICIENT2: int = 20
     S_IN_M: int = 60
 
     def __init__(self,
@@ -70,15 +70,15 @@ class Running(Training):
 
     def get_spent_calories(self) -> float:
         """Переопределяет метод get_spent_calories."""
-        return ((self.Сoefficient1 * self.get_mean_speed() - self.Сoefficient2)
+        return ((self.СOEFFICIENT1 * self.get_mean_speed() - self.СOEFFICIENT2)
                 * self.weight / self.M_IN_KM * (self.duration * self.S_IN_M))
 
 
 class SportsWalking(Training):
     """Тренировка: спортивная ходьба."""
-    Сoefficient1: float = 0.035
-    Сoefficient2: float = 0.029
-    Exponentiation: int = 2
+    СOEFFICIENT1: float = 0.035
+    СOEFFICIENT2: float = 0.029
+    EXPONENTIATION: int = 2
     S_IN_M: int = 60
 
     def __init__(self,
@@ -91,17 +91,17 @@ class SportsWalking(Training):
 
     def get_spent_calories(self) -> float:
         """Переопределяет метод get_spent_calories."""
-        return ((self.Сoefficient1 * self.weight
-                + (self.get_mean_speed() ** self.Exponentiation // self.height)
-                * self.Сoefficient2 * self.weight)
+        return ((self.СOEFFICIENT1 * self.weight
+                + (self.get_mean_speed() ** self.EXPONENTIATION // self.height)
+                * self.СOEFFICIENT2 * self.weight)
                 * (self.duration * self.S_IN_M))
 
 
 class Swimming(Training):
     """Тренировка: плавание."""
     LEN_STEP: float = 1.38
-    Сoefficient1: float = 1.1
-    Сoefficient2: int = 2
+    СOEFFICIENT1: float = 1.1
+    СOEFFICIENT2: int = 2
 
     def __init__(self,
                  action: int,
@@ -120,8 +120,8 @@ class Swimming(Training):
 
     def get_spent_calories(self) -> float:
         """Переопределяет метод get_spent_calories."""
-        return ((self.get_mean_speed() + self.Сoefficient1)
-                * self.Сoefficient2 * self.weight)
+        return ((self.get_mean_speed() + self.СOEFFICIENT1)
+                * self.СOEFFICIENT2 * self.weight)
 
 
 def read_package(workout_type: str, data: list) -> Training:
